@@ -23,34 +23,43 @@ public class Calculadora extends Application {
 		
 		ComboBox<String> operadorCombo = new ComboBox<>();
 		operadorCombo.getItems().addAll("+","-","*","/");
-		VBox cajaComboBox = new VBox(5, operadorCombo);
+		VBox cajaComboBox = new VBox(10, operadorCombo);
 		cajaComboBox.setAlignment(Pos.CENTER);
 		
 		
 
 		TextField num1Real = new TextField();
+		num1Real.setPrefColumnCount(4);
 		TextField num1Imaginario = new TextField();
+		num1Imaginario.setPrefColumnCount(4);
 		HBox operando1 = new HBox(5, num1Real, new Label("+"), num1Imaginario, new Label("i"));
 		
 		
+		
 		TextField num2Real = new TextField();
+		num2Real.setPrefColumnCount(4);
 		TextField num2Imaginario = new TextField();
+		num2Imaginario.setPrefColumnCount(4);
 		HBox operando2 = new HBox(5, num2Real, new Label("+"), num2Imaginario, new Label("i"));
+	
 		
 		TextField resultadoReal = new TextField();
+		resultadoReal.setPrefColumnCount(4);
 		TextField resultadoImaginario = new TextField();
+		resultadoImaginario.setPrefColumnCount(4);
 		HBox resultadoOperandos = new HBox(5, resultadoReal, new Label("+"), resultadoImaginario, new Label("i"));
+		
 		
 		VBox cajaOperaciones = new VBox(5, operando1, operando2, new Separator(), resultadoOperandos);
 		cajaOperaciones.setAlignment(Pos.CENTER);
-		cajaOperaciones.setFillWidth(false);
+		
 		
 		
 		HBox root = new HBox(5, cajaComboBox, cajaOperaciones);
 		root.setAlignment(Pos.CENTER);
 		
 		
-		Scene scene = new Scene(root, 420, 200);
+		Scene scene = new Scene(root, 320, 200);
 		
 		primaryStage.setTitle("Calculadora de números complejos");
 		primaryStage.setScene(scene);
