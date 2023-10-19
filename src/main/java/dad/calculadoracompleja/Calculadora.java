@@ -55,7 +55,7 @@ public class Calculadora extends Application {
 		
 		
 		
-		HBox root = new HBox(5, cajaComboBox, cajaOperaciones);
+		HBox root = new HBox(15, cajaComboBox, cajaOperaciones);
 		root.setAlignment(Pos.CENTER);
 		
 		
@@ -69,19 +69,16 @@ public class Calculadora extends Application {
 			
 		// bindings
 		
-		DoubleProperty a = new SimpleDoubleProperty();	
-		DoubleProperty b = new SimpleDoubleProperty();
-		DoubleProperty c = new SimpleDoubleProperty();	
-		DoubleProperty d = new SimpleDoubleProperty();
-		DoubleProperty resultReal = new SimpleDoubleProperty();	
-		DoubleProperty resultImaginario = new SimpleDoubleProperty();
+		Complejo x = new Complejo();
+		Complejo y = new Complejo();
+		Complejo r = new Complejo();
 		
-		num1Real.textProperty().bindBidirectional(a, new NumberStringConverter());
-		num1Imaginario.textProperty().bindBidirectional(b, new NumberStringConverter());
-		num2Real.textProperty().bindBidirectional(c, new NumberStringConverter());
-		num2Imaginario.textProperty().bindBidirectional(d, new NumberStringConverter());
-		resultadoReal.textProperty().bind(resultReal.asString());
-		resultadoImaginario.textProperty().bind(resultImaginario.asString());
+		num1Real.textProperty().bindBidirectional(x.realProperty(),new NumberStringConverter());
+		num1Imaginario.textProperty().bindBidirectional(x.imaginarioProperty(), new NumberStringConverter());
+		num2Real.textProperty().bindBidirectional(y.realProperty(), new NumberStringConverter());
+		num2Imaginario.textProperty().bindBidirectional(y.imaginarioProperty(), new NumberStringConverter());
+		resultadoReal.textProperty().bind(r.realProperty().asString());
+		resultadoImaginario.textProperty().bind(r.imaginarioProperty().asString());
 		
 		
 		// listener
@@ -90,22 +87,16 @@ public class Calculadora extends Application {
 			
 			switch(nv) {
 			case "+":
-				resultReal.bind(a.add(c));
-				resultImaginario.bind(b.add(d));
+				r.sumar(x, y);
 				break;
 			case "-":
-				resultReal.bind(a.subtract(c));
-				resultImaginario.bind(b.subtract(d));
+				r.restar(x, y);
 				break;
 			case "*":
-				resultReal.bind(a.multiply(c).subtract(b.multiply(d)));
-				resultImaginario.bind(a.multiply(d).add(b.multiply(c)));
+				r.multiplicar(x, y);
 				break;
 			case "/":
-				resultReal.bind(a.multiply(c).add(b.multiply(d))
-						.divide(c.multiply(c).add(d.multiply(d))));
-				resultImaginario.bind(b.multiply(c).subtract(a.multiply(d))
-						.divide(c.multiply(c).add(d.multiply(d))));
+				r.dividir(x, y);
 			}
 		});
 		
